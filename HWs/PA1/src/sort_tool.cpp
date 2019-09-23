@@ -70,28 +70,37 @@ void SortTool::Merge(vector<int> &data, int low, int middle1, int middle2,
   // TODO : Please complete the function
   int n1 = middle1 - low + 1;
   int n2 = high - middle2 + 1;
-  vector<int> L, R;
-  L.assign(data.begin() + low, data.begin() + middle1 + 1);
-  R.assign(data.begin() + middle2, data.begin() + middle1 + 1);
+  cout << low << ' ' << high << ' ' << middle1 << "\n";
+  vector<int> L(data.begin() + low, data.begin() + middle1),
+      R(data.begin() + middle2, data.begin() + middle1 );
+  //   L.assign(data.begin() + low, data.begin() + middle1 + 1);
+  for (auto &i : L) {
+    cout << i << '\n';
+  }
+
+  //   R.assign(data.begin() + middle2, data.begin() + middle1 + 1);
+  for (auto &i : R) {
+    cout << i << '\n';
+  }
   int i = 0, j = 0;
   for (int k = low; k < high; ++k) {
-    try {
+    if (i < n1 && j < n2) {
       if (L[i] <= R[j]) {
-        data[k] = L[i];
+        data[k - 1] = L[i];
         ++i;
       } else {
-        data[k] = R[j];
+        data[k - 1] = R[j];
         ++j;
       }
-    } catch (bad_alloc &e) {
-      if (i >= middle1 - low + 1)
-        for (int m = j; m < high - middle2 + 1; ++m) {
-          data[m] = R[j];
+    } else {
+      if (i >= n1) {
+        for (int m = j; m < n2; ++m) {
+          data[m - 1] = R[j];
           ++j;
         }
-      else
-        for (int m = i; m < middle1 - low + 1; ++m) {
-          data[m] = L[i];
+      } else
+        for (int m = i; m < n2; ++m) {
+          data[m - 1] = L[i];
           ++i;
         }
       break;
