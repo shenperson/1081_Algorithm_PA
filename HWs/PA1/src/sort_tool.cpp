@@ -47,6 +47,7 @@ int SortTool::Partition(vector<int> &data, int low, int high) {
   // Function : Partition the vector
   // TODO : Please complete the function
   // Hint : Textbook page 171
+  swap(data[high], data[(low + high) / 2]);
   int pivot = data[high], i = low - 1;
   for (int j = low; j <= high, j != high; ++j) {
     if (data[j] <= pivot) {
