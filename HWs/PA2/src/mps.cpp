@@ -1,13 +1,12 @@
-#include <fstream>
 #include <iostream>
 #include "chord.h"
-using namespace std;
 void load(char const*);
 int main(int argc, char* argv[]) {
   if (argc != 3) {
-    cerr << "usage:\t./mps <input file name> <output file name>";
+    std::cerr << "usage:\t./mps <input file name> <output file name>\n";
     return 0;
   }
-  load(argv[1]);
+  Chord chord;
+  chord.load_data(argv[1]);
+  chord.MIS();
 }
-void load(char const* input) {}
