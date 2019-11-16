@@ -1,16 +1,26 @@
 .PHONY: all clean run
 vpath %.o  src
 CC=g++
-CFLAGS=-std=c++11 -O2
+CFLAGS=-std=c++11
+OPTFLAGS= -O2
 LDFLAGS=-lm
-TARGET = chord.o mps
+TARGET = link mps
 all: $(TARGET)
 
+# mps: src/mps.cpp src/chord.o
+# 	$(CC) -o $@ $^ $(CFLAGS)
+
+# chord.o: src/chord.h src/chord.cpp
+# 	# $(CC) -c src/chord.h src/chord.cpp $(CFLAGS)
+# 	$(CC) -c  $(CFLAGS) 
+
+link: src/chord.cpp
+	$(CC) -c -o src/chord.o src/chord.cpp $(CFLAGS) $(OPTFLAGS)
+
 mps: src/mps.cpp src/chord.o
-	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS) -Iinc
+	$(CC) -o $@ $^ $(CFLAGS) $(OPTFLAGS)
 
-chord.o: src/chord.h src/chord.cpp
-	$(CC) -c src/chord.h src/chord.cpp $(CFLAGS)
-
+check: src/check.cpp
+	$(CC) -o $@ $^ $(CFLAGS) $(OPTFLAGS)
 clean:
-	rm -f $(TARGET) src/*.o src/*.h.gch chord.o
+	rm -f $(TARGET) src/*.o
