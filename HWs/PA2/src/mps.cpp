@@ -9,7 +9,5 @@ int main(int argc, char* argv[]) {
   Chord chord;
   chord.load_data(argv[1]);
   chord.MIS();
-  cout << "dump result...\n";
   chord.dump_result(argv[2]);
-  cout << "end\n";
 }

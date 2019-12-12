@@ -2,9 +2,9 @@
 vpath %.o  src
 CC=g++
 CFLAGS=-std=c++11
-OPTFLAGS= -O2
+OPTFLAGS= -O3
 LDFLAGS=-lm
-TARGET = link mps
+TARGET = link cb
 all: $(TARGET)
 
 # mps: src/mps.cpp src/chord.o
@@ -14,13 +14,13 @@ all: $(TARGET)
 # 	# $(CC) -c src/chord.h src/chord.cpp $(CFLAGS)
 # 	$(CC) -c  $(CFLAGS) 
 
-link: src/chord.cpp
-	$(CC) -c -o src/chord.o src/chord.cpp $(CFLAGS) $(OPTFLAGS)
+link: src/graph.cpp
+	$(CC) -c -o src/graph.o src/graph.cpp $(CFLAGS) $(OPTFLAGS)
 
-mps: src/mps.cpp src/chord.o
+cb: src/cb.cpp src/graph.o
 	$(CC) -o $@ $^ $(CFLAGS) $(OPTFLAGS)
 
-check: src/check.cpp
-	$(CC) -o $@ $^ $(CFLAGS) $(OPTFLAGS)
+# check: src/check.cpp
+# 	$(CC) -o $@ $^ $(CFLAGS) $(OPTFLAGS)
 clean:
 	rm -f  src/*.o

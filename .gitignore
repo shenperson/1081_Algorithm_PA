@@ -1,3 +1,7 @@
 slides
 slides_for_copy
 Introduction_to_Algorithms.pdf
+*.out
+*/*.out
+*/*/*.out
+b06901090*
