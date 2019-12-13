@@ -7,5 +7,6 @@ int main(int argc, char* argv[]) {
   }
   Graph graph;
   graph.load_data(argv[1]);
-  graph.MST_PRIM();
+  graph.cb();
+  graph.dump_file(argv[2]);
 }

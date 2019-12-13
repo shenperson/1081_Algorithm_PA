@@ -12,13 +12,17 @@ class MyHashFunction {
   size_t operator()(const Vertex& t) const { return t.id; }
 };
 
-Graph::Graph() {}
+Graph::Graph() : total_w(0) {}
 
 Graph::~Graph() {
   for (int i = 0; i < numV; ++i) {
     delete[] weight[i];
   }
   delete[] weight;
+}
+
+void Graph::cb() {
+  if (type == undirected) MST_PRIM();
 }
 
 void Graph::load_data(char const* path) {
@@ -53,53 +57,48 @@ void Graph::load_data(char const* path) {
     weight[u][v] = -w;
     weight[v][u] = -w;
   }
-  // for (const auto& i : vertices) {
-  //   cout << i.id << ':';
-  //   for (const auto& v : i.Adj) {
-  //     cout << vertices[v].id << ' ';
-  //   }
-  //   cout << '\n';
-  // }
-  // cout << "--------\n";
-  // for (int i = 0; i < numV; ++i) {
-  //   for (int j = 0; j < numV; ++j) cout << weight[i][j] << ' ';
-  //   cout << '\n';
-  // }
 }
 
+void Graph::dump_file(char const* path) {
+  ofstream ss(path);
+  ss << total_w << '\n';
+  for (const auto& i : output) {
+    ss << i->u << ' ' << i->v << ' ' << i->w << '\n';
+  }
+}
+
+/* ----- undirected ----- */
 void Graph::MST_PRIM() {
-  unordered_set<Vertex, MyHashFunction> Q_map;
   auto comp = [&](int a, int b) { return vertices[a].key > vertices[b].key; };
-  // Q.assign(vertices.begin(), vertices.end());
+  vector<int> Q;
+  unordered_set<int> Q_map;
   Q.resize(numV, NULL);
   for (int i = 0; i < numV; ++i) {
     Q[i] = i;
-  }
-  for (const auto& i : Q) {
     Q_map.insert(i);
   }
+
   vertices[Q[0]].key = 0;
-  std::make_heap(Q.begin(), Q.end(), comp);
 
   while (!Q.empty()) {
+    make_heap(Q.begin(), Q.end(), comp);
     pop_heap(Q.begin(), Q.end(), comp);
     Vertex& u = vertices[Q.back()];
     Q.pop_back();
-    Q_map.erase(u);
-    cout << u.id << ':';
+    Q_map.erase(u.id);
+
     for (auto& v : u.Adj) {
-      cout << v;
       if (Q_map.find(v) != Q_map.end() && weight[u.id][v] < vertices[v].key) {
-        cout << '_';
         vertices[v].pi = u.id;
         vertices[v].key = weight[u.id][v];
       }
-      cout << ' ';
     }
-    cout << '\n';
   }
-  cout << "========\n";
-  for (const auto& i : vertices) {
-    cout << i.id << " : " << i.pi << '\n';
+  for (int i = 0; i < numE; ++i) {
+    if (vertices[edges[i].u].pi != edges[i].v &&
+        vertices[edges[i].v].pi != edges[i].u) {
+      output.push_back(&(edges[i]));
+      total_w += edges[i].w;
+    }
   }
 }

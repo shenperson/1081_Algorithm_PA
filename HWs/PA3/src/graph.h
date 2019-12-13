@@ -28,14 +28,18 @@ class Graph {
   int numV, numE;
   vector<Edge> edges;
   vector<Vertex> vertices;
-  vector<int> Q;
+  vector<Edge*> output;
+  int total_w;
+
   int** weight;
 
  public:
   Graph();
   ~Graph();
   void load_data(char const* path);
+  void cb();
   void MST_PRIM();
+  void dump_file(char const* path);
 };
 
 #endif
