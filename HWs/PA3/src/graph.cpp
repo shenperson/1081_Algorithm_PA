@@ -6,6 +6,11 @@
 
 #define undirected 1
 #define directed 0
+// for unordered_map
+class MyHashFunction {
+ public:
+  size_t operator()(const Vertex& t) const { return t.id; }
+};
 
 Graph::Graph() : total_w(0) {}
 
@@ -66,10 +71,11 @@ void Graph::dump_file(char const* path) {
 void Graph::MST_PRIM() {
   auto comp = [&](int a, int b) { return vertices[a].key > vertices[b].key; };
   vector<int> Q;
-  bool* Q_map = new bool[numV]();
+  unordered_set<int> Q_map;
   Q.resize(numV, NULL);
   for (int i = 0; i < numV; ++i) {
     Q[i] = i;
+    Q_map.insert(i);
   }
 
   vertices[Q[0]].key = 0;
@@ -79,10 +85,10 @@ void Graph::MST_PRIM() {
     pop_heap(Q.begin(), Q.end(), comp);
     Vertex& u = vertices[Q.back()];
     Q.pop_back();
-    Q_map[u.id] = 1;
+    Q_map.erase(u.id);
 
     for (auto& v : u.Adj) {
-      if (Q_map[v] != 1 && weight[u.id][v] < vertices[v].key) {
+      if (Q_map.find(v) != Q_map.end() && weight[u.id][v] < vertices[v].key) {
         vertices[v].pi = u.id;
         vertices[v].key = weight[u.id][v];
       }
