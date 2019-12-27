@@ -94,7 +94,8 @@ void Graph::dump_file(char const* path) {
     ss << i->u << ' ' << i->v << ' ' << -(i->w) << '\n';
   }
 }
-
+// ( key, id )
+typedef pair<int, int> Pair;
 /* ----- undirected ----- */
 void Graph::MST_PRIM() {
   // cout << "zzz" << endl;
@@ -153,6 +154,29 @@ void Graph::MST_PRIM() {
     // }
     // // cout << '\n';
   }
+
+  // auto comp = [&](int a, int b) { return vertices[a].key > vertices[b].key;
+  // }; vector<int> Q; bool* Q_map = new bool[numV](); Q.resize(numV, NULL); for
+  // (int i = 0; i < numV; ++i) {
+  //   Q[i] = i;
+  // }
+
+  // vertices[Q[0]].key = 0;
+
+  // while (!Q.empty()) {
+  //   make_heap(Q.begin(), Q.end(), comp);
+  //   pop_heap(Q.begin(), Q.end(), comp);
+  //   Vertex& u = vertices[Q.back()];
+  //   Q.pop_back();
+  //   Q_map[u.id] = 1;
+
+  //   for (auto& v : u.Adj) {
+  //     if (Q_map[v] != 1 && weight[u.id][v] < vertices[v].key) {
+  //       vertices[v].pi = u.id;
+  //       vertices[v].key = weight[u.id][v];
+  //     }
+  //   }
+  // }
   for (int i = 0; i < numE; ++i) {
     if (vertices[edges[i].u].pi != edges[i].v &&
         vertices[edges[i].v].pi != edges[i].u) {
