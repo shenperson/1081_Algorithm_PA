@@ -20,8 +20,8 @@ struct Vertex {
   int pi;
   vector<int> Adj;
   Vertex() : id(-1), key(MAX_INT16), pi(-1) {}
-  Vertex(int _id) : id(_id), key(MAX_INT16), pi(-1) {}
-  bool operator==(const Vertex& t) const { return (this->id == t.id); }
+  // Vertex(int _id) : id(_id), key(MAX_INT16), pi(-1) {}
+  // bool operator==(const Vertex& t) const { return (this->id == t.id); }
 };
 
 struct Vertex_ {
