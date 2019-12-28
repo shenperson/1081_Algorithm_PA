@@ -20,9 +20,8 @@ link: src/graph.cpp
 cb: src/cb.cpp src/graph.o
 	$(CC) -o $@ $^ $(CFLAGS) $(OPTFLAGS)
 
-gen: src/graph_gen.cpp
-	$(CC) -o $@ $^ $(CFLAGS) $(OPTFLAGS)
-# check: src/check.cpp
+# gen: src/graph_gen.cpp
 # 	$(CC) -o $@ $^ $(CFLAGS) $(OPTFLAGS)
+
 clean:
 	rm -f  src/*.o

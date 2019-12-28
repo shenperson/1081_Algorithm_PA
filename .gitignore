@@ -4,5 +4,6 @@ Introduction_to_Algorithms.pdf
 *.out
 */*.out
 */*/*.out
-b06901090*
 HWs/PA3/public_cases/public_case_6.*
+HWs/PA3/public_cases/u_50000000_*.in
+b06901090*

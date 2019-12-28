@@ -146,8 +146,8 @@ void Graph::GR() {
         }
       }
     }
+    
     int max = -2147483648, max_id = -2147483648;
-
     for (int i = 0; i < numV; ++i) {
       if (V_map[i] == 0) {
         int delta = 0;
